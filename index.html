@@ -25,12 +25,7 @@
     border-bottom: 3px solid #E10600;
   }
 
-  .header h1 {
-    font-size: 28px;
-    letter-spacing: 2px;
-    font-weight: 900;
-  }
-
+  .header h1 { font-size: 28px; letter-spacing: 2px; font-weight: 900; }
   .header h1 span { color: #E10600; }
 
   .status {
@@ -43,13 +38,10 @@
   }
 
   .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+    width: 12px; height: 12px; border-radius: 50%;
     background: #E10600;
     animation: pulse 1s infinite;
   }
-
   .dot.live { background: #00D2BE; }
 
   @keyframes pulse {
@@ -57,12 +49,7 @@
     50% { opacity: 0.4; transform: scale(0.8); }
   }
 
-  .grid {
-    display: grid;
-    gap: 15px;
-    margin-bottom: 15px;
-  }
-
+  .grid { display: grid; gap: 15px; margin-bottom: 15px; }
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
   .grid-4 { grid-template-columns: repeat(4, 1fr); }
   .grid-2 { grid-template-columns: 2fr 1fr; }
@@ -76,76 +63,45 @@
   }
 
   .card-title {
-    color: #888;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-    font-weight: 600;
+    color: #888; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 2px; margin-bottom: 8px; font-weight: 600;
   }
 
   .metric-value {
-    font-size: 42px;
-    font-weight: 900;
-    font-family: 'Courier New', monospace;
-    line-height: 1;
+    font-size: 42px; font-weight: 900;
+    font-family: 'Courier New', monospace; line-height: 1;
   }
 
   .metric-unit {
-    font-size: 16px;
-    color: #666;
-    font-weight: normal;
-    margin-left: 4px;
+    font-size: 16px; color: #666; font-weight: normal; margin-left: 4px;
   }
 
   .gear-display {
-    font-size: 96px;
-    color: #E10600;
-    font-weight: 900;
-    text-align: center;
-    font-family: 'Courier New', monospace;
-    line-height: 1;
-    text-shadow: 0 0 30px rgba(225, 6, 0, 0.5);
+    font-size: 96px; color: #E10600; font-weight: 900;
+    text-align: center; font-family: 'Courier New', monospace;
+    line-height: 1; text-shadow: 0 0 30px rgba(225, 6, 0, 0.5);
   }
 
   .drs-badge {
-    text-align: center;
-    padding: 8px;
-    border-radius: 5px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    margin-top: 10px;
-    background: #333;
-    color: #666;
-    transition: all 0.2s;
+    text-align: center; padding: 8px; border-radius: 5px;
+    font-weight: 900; letter-spacing: 3px; margin-top: 10px;
+    background: #333; color: #666; transition: all 0.2s;
   }
 
   .drs-badge.active {
-    background: #00D2BE;
-    color: #15151E;
+    background: #00D2BE; color: #15151E;
     box-shadow: 0 0 20px rgba(0, 210, 190, 0.6);
   }
 
-  /* Bar meters */
   .bar-container {
-    background: #0F0F15;
-    height: 30px;
-    border-radius: 5px;
-    overflow: hidden;
-    position: relative;
-    margin-top: 8px;
+    background: #0F0F15; height: 30px; border-radius: 5px;
+    overflow: hidden; position: relative; margin-top: 8px;
   }
 
   .bar-fill {
-    height: 100%;
-    transition: width 0.1s linear;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 8px;
-    font-weight: bold;
-    font-size: 14px;
-    color: #15151E;
+    height: 100%; transition: width 0.1s linear;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding-right: 8px; font-weight: bold; font-size: 14px; color: #15151E;
   }
 
   .bar-throttle { background: linear-gradient(90deg, #00D2BE, #00FFE0); }
@@ -153,147 +109,79 @@
   .bar-ers      { background: linear-gradient(90deg, #FFD700, #FFE97A); }
   .bar-fuel     { background: linear-gradient(90deg, #00D2BE, #7BE0D3); }
 
-  /* Tire temps */
   .tire-card {
-    background: #1F1F27;
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-    border-top: 4px solid #E10600;
+    background: #1F1F27; border-radius: 10px; padding: 12px;
+    text-align: center; border-top: 4px solid #E10600;
     transition: border-color 0.3s;
   }
 
-  .tire-label {
-    font-size: 12px;
-    color: #888;
-    letter-spacing: 2px;
-    font-weight: bold;
-  }
+  .tire-label { font-size: 12px; color: #888; letter-spacing: 2px; font-weight: bold; }
 
   .tire-temp {
-    font-size: 28px;
-    font-weight: 900;
-    font-family: 'Courier New', monospace;
-    margin: 5px 0;
+    font-size: 28px; font-weight: 900;
+    font-family: 'Courier New', monospace; margin: 5px 0;
   }
 
   .tire-wear-bar {
-    background: #0F0F15;
-    height: 6px;
-    border-radius: 3px;
-    overflow: hidden;
-    margin-top: 6px;
+    background: #0F0F15; height: 6px; border-radius: 3px;
+    overflow: hidden; margin-top: 6px;
   }
 
-  .tire-wear-fill {
-    height: 100%;
-    background: #FFD700;
-    transition: width 0.3s;
-  }
+  .tire-wear-fill { height: 100%; background: #FFD700; transition: width 0.3s; }
 
-  /* Chart containers */
   .chart-container {
-    background: #1F1F27;
-    border-radius: 10px;
-    padding: 10px;
-    height: 320px;
+    background: #1F1F27; border-radius: 10px; padding: 10px; height: 320px;
   }
 
-  /* Track map */
   #trackMap {
-    height: 380px;
-    background: #1F1F27;
-    border-radius: 10px;
-    padding: 10px;
+    height: 380px; background: #1F1F27; border-radius: 10px; padding: 10px;
   }
 
-  /* Lap timing */
   .lap-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 8px 0;
-    border-bottom: 1px solid #2A2A33;
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 8px 0; border-bottom: 1px solid #2A2A33;
   }
-
   .lap-row:last-child { border-bottom: none; }
-
-  .lap-label {
-    color: #888;
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .lap-value {
-    font-family: 'Courier New', monospace;
-    font-size: 22px;
-    font-weight: bold;
-    color: #00D2BE;
-  }
-
+  .lap-label { color: #888; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+  .lap-value { font-family: 'Courier New', monospace; font-size: 22px; font-weight: bold; color: #00D2BE; }
   .lap-value.best { color: #A855F7; }
 
-  /* Controls */
   .controls {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-    z-index: 100;
+    position: fixed; bottom: 20px; right: 20px;
+    display: flex; gap: 10px; z-index: 100;
   }
 
   .btn {
-    background: #E10600;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    cursor: pointer;
-    font-size: 14px;
-    text-transform: uppercase;
-    transition: all 0.2s;
+    background: #E10600; color: white; border: none;
+    padding: 12px 20px; border-radius: 8px; font-weight: bold;
+    letter-spacing: 1px; cursor: pointer; font-size: 14px;
+    text-transform: uppercase; transition: all 0.2s;
     box-shadow: 0 4px 15px rgba(225, 6, 0, 0.4);
   }
 
   .btn:hover { background: #FF1717; transform: translateY(-2px); }
   .btn.paused { background: #FFD700; color: #15151E; }
 
-  @media (max-width: 900px) {
-    .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
-    .metric-value { font-size: 32px; }
-  }
-
-  /* Steering indicator */
   .steering-container {
-    position: relative;
-    height: 60px;
-    background: #0F0F15;
-    border-radius: 5px;
-    margin-top: 10px;
-    overflow: hidden;
+    position: relative; height: 60px; background: #0F0F15;
+    border-radius: 5px; margin-top: 10px; overflow: hidden;
   }
 
   .steering-center {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #444;
-    transform: translateX(-50%);
+    position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 2px; background: #444; transform: translateX(-50%);
   }
 
   .steering-bar {
-    position: absolute;
-    top: 15px;
-    height: 30px;
-    background: #FFD700;
-    border-radius: 3px;
+    position: absolute; top: 15px; height: 30px;
+    background: #FFD700; border-radius: 3px;
     transition: all 0.1s linear;
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 900px) {
+    .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+    .metric-value { font-size: 32px; }
   }
 </style>
 </head>
@@ -307,7 +195,6 @@
   </div>
 </div>
 
-<!-- Row 1: Speed, RPM, Gear -->
 <div class="grid grid-3">
   <div class="card">
     <div class="card-title">SPEED</div>
@@ -330,7 +217,6 @@
   </div>
 </div>
 
-<!-- Row 2: Throttle, Brake, Steering -->
 <div class="grid grid-3">
   <div class="card">
     <div class="card-title">THROTTLE</div>
@@ -354,7 +240,6 @@
   </div>
 </div>
 
-<!-- Row 3: Track + Session Info -->
 <div class="grid grid-2">
   <div id="trackMap"></div>
   <div class="card">
@@ -386,7 +271,6 @@
   </div>
 </div>
 
-<!-- Row 4: Tires -->
 <div class="grid grid-4" style="margin-bottom:15px;">
   <div class="tire-card" id="tireFL">
     <div class="tire-label">FL</div>
@@ -410,10 +294,8 @@
   </div>
 </div>
 
-<!-- Row 5: History Chart -->
 <div class="chart-container" id="historyChart"></div>
 
-<!-- Controls -->
 <div class="controls">
   <button class="btn" id="pauseBtn">⏸ PAUSE</button>
   <button class="btn" id="resetBtn" style="background:#00D2BE;color:#15151E;">↺ RESET</button>
@@ -428,14 +310,89 @@ const CONFIG = {
   MAX_RPM: 15000,
   GEAR_RATIOS: [0, 3.5, 2.8, 2.2, 1.8, 1.5, 1.3, 1.1, 0.95],
   UPDATE_RATE: 20,
-  HISTORY_SIZE: 300,
-  TRACK_POINTS: [
-    [0, 0], [100, 0], [200, 50], [300, 150],
-    [350, 250], [300, 350], [200, 400], [100, 400],
-    [0, 350], [-50, 250], [-50, 150], [0, 50],
-    [50, 0], [100, 0]
-  ]
+  HISTORY_SIZE: 300
 };
+
+/* ============================================================
+   TRACK — плавная замкнутая трасса (Сузука-подобная)
+   Генерируется по контрольным точкам через Catmull-Rom сплайн
+   ============================================================ */
+const TRACK_CONTROL_POINTS = [
+  [0, 0],     [120, -20], [220, 20],  [280, 100],
+  [300, 200], [260, 300], [180, 360], [80, 380],
+  [-40, 360], [-120, 280], [-140, 180], [-100, 90],
+  [-30, 30]
+];
+
+function catmullRom(p0, p1, p2, p3, t) {
+  const t2 = t * t;
+  const t3 = t2 * t;
+  return [
+    0.5 * ((2*p1[0]) + (-p0[0]+p2[0])*t + (2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*t2 + (-p0[0]+3*p1[0]-3*p2[0]+p3[0])*t3),
+    0.5 * ((2*p1[1]) + (-p0[1]+p2[1])*t + (2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2 + (-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3)
+  ];
+}
+
+function buildSmoothTrack(controlPoints, samplesPerSegment = 30) {
+  const pts = [];
+  const n = controlPoints.length;
+  for (let i = 0; i < n; i++) {
+    const p0 = controlPoints[(i - 1 + n) % n];
+    const p1 = controlPoints[i];
+    const p2 = controlPoints[(i + 1) % n];
+    const p3 = controlPoints[(i + 2) % n];
+    for (let s = 0; s < samplesPerSegment; s++) {
+      const t = s / samplesPerSegment;
+      pts.push(catmullRom(p0, p1, p2, p3, t));
+    }
+  }
+  // Замыкаем
+  pts.push([...pts[0]]);
+  return pts;
+}
+
+const TRACK = buildSmoothTrack(TRACK_CONTROL_POINTS, 25);
+
+// Длины сегментов и общая длина
+const SEGMENT_LENGTHS = [];
+let TRACK_LENGTH = 0;
+for (let i = 0; i < TRACK.length - 1; i++) {
+  const dx = TRACK[i+1][0] - TRACK[i][0];
+  const dy = TRACK[i+1][1] - TRACK[i][1];
+  const len = Math.hypot(dx, dy);
+  SEGMENT_LENGTHS.push(len);
+  TRACK_LENGTH += len;
+}
+
+// Получить позицию и угол по расстоянию s от старта
+function getTrackPose(s) {
+  s = ((s % TRACK_LENGTH) + TRACK_LENGTH) % TRACK_LENGTH;
+  let acc = 0;
+  for (let i = 0; i < SEGMENT_LENGTHS.length; i++) {
+    if (acc + SEGMENT_LENGTHS[i] >= s) {
+      const frac = (s - acc) / SEGMENT_LENGTHS[i];
+      const p1 = TRACK[i];
+      const p2 = TRACK[i + 1];
+      const x = p1[0] + (p2[0] - p1[0]) * frac;
+      const y = p1[1] + (p2[1] - p1[1]) * frac;
+      const angle = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
+      return { x, y, angle, index: i };
+    }
+    acc += SEGMENT_LENGTHS[i];
+  }
+  const last = TRACK[TRACK.length - 1];
+  return { x: last[0], y: last[1], angle: 0, index: 0 };
+}
+
+// Кривизна впереди (для симуляции водителя)
+function getCurvatureAhead(s, lookahead) {
+  const p1 = getTrackPose(s);
+  const p2 = getTrackPose(s + lookahead);
+  let dAngle = p2.angle - p1.angle;
+  while (dAngle > Math.PI) dAngle -= 2 * Math.PI;
+  while (dAngle < -Math.PI) dAngle += 2 * Math.PI;
+  return dAngle;
+}
 
 /* ============================================================
    CAR SIMULATOR
@@ -444,8 +401,8 @@ class CarSimulator {
   constructor() { this.reset(); }
 
   reset() {
-    this.speed = 0;
-    this.rpm = 0;
+    this.speed = 0;            // km/h
+    this.rpm = 3000;
     this.gear = 0;
     this.throttle = 0;
     this.brake = 0;
@@ -459,10 +416,9 @@ class CarSimulator {
     this.lapTime = 0;
     this.bestLap = null;
     this.lapStart = performance.now() / 1000;
-    this.position = [0, 0, 0];
-    this.trackIndex = 0;
-    this.lastLapTime = 0;
-    this.distance = 0;
+    this.distance = 0;         // пройденное расстояние по трассе (метры)
+    this.position = [TRACK[0][0], TRACK[0][1], 0];
+    this.lastS = 0;
   }
 
   update(dt) {
@@ -477,56 +433,79 @@ class CarSimulator {
     this.lapTime = performance.now() / 1000 - this.lapStart;
   }
 
+  /* Водитель смотрит на кривизну впереди и решает газ/тормоз */
   _driverInput() {
-    const lookahead = 3;
-    const idx = Math.floor(this.trackIndex) % CONFIG.TRACK_POINTS.length;
-    const curr = CONFIG.TRACK_POINTS[idx];
-    const ahead = CONFIG.TRACK_POINTS[(idx + lookahead) % CONFIG.TRACK_POINTS.length];
+    const speedMs = this.speed / 3.6;
+    // Смотрим вперёд пропорционально скорости (от 30 до 120 м)
+    const lookahead = 30 + speedMs * 2.5;
 
-    const dx = ahead[0] - curr[0];
-    const dy = ahead[1] - curr[1];
-    const targetAngle = Math.atan2(dy, dx);
-    const angleDiff = this._angleDiff(targetAngle, this.position[2]);
-    const absDiff = Math.abs(angleDiff);
-
-    if (absDiff > 0.5) {
-      this.brake = Math.min(100, absDiff * 100);
-      this.throttle = 0;
-    } else if (absDiff > 0.2) {
-      this.brake = 20;
-      this.throttle = 40 + (Math.random() - 0.5) * 10;
-    } else {
-      this.brake = 0;
-      this.throttle = Math.min(100, 70 + (Math.random() - 0.5) * 20);
+    // Считаем кривизну в нескольких точках впереди и берём максимум
+    let maxCurv = 0;
+    for (let d = 20; d <= lookahead; d += 15) {
+      const c = Math.abs(getCurvatureAhead(this.distance, d));
+      if (c > maxCurv) maxCurv = c;
     }
-    this.steering = angleDiff * 100 + (Math.random() - 0.5) * 4;
+
+    // Целевая скорость зависит от кривизны
+    // maxCurv ~ 0 (прямая) -> 340 км/ч, maxCurv ~ 0.5 (крутой поворот) -> 80 км/ч
+    const targetSpeed = Math.max(70, CONFIG.MAX_SPEED * (1 - maxCurv * 1.6));
+
+    const speedDiff = targetSpeed - this.speed;
+
+    if (speedDiff > 5) {
+      // Разгон
+      this.throttle = Math.min(100, 40 + speedDiff * 2);
+      this.brake = 0;
+    } else if (speedDiff < -15) {
+      // Торможение
+      this.brake = Math.min(100, -speedDiff * 3);
+      this.throttle = 0;
+    } else {
+      // Поддержание
+      this.throttle = 30 + speedDiff * 1.5;
+      this.brake = 0;
+    }
+
+    // Steering — насколько сильно руль отклонён относительно направления
+    const pose = getTrackPose(this.distance);
+    const angleToTrack = getCurvatureAhead(this.distance, 10) * 30;
+    this.steering = Math.max(-100, Math.min(100, angleToTrack * 100));
+
+    // DRS на прямых
+    this.drs = maxCurv < 0.05 && this.speed > 250;
   }
 
-  _angleDiff(a, b) {
-    let d = a - b;
-    while (d > Math.PI) d -= 2 * Math.PI;
-    while (d < -Math.PI) d += 2 * Math.PI;
-    return d;
-  }
-
+  /* Реальная физика: разгон до 340 за ~10 секунд */
   _physics(dt) {
-    const throttleForce = this.throttle * 0.1;
-    const brakeForce = this.brake * 0.15;
-    const drag = Math.pow(this.speed / CONFIG.MAX_SPEED, 2) * 0.05;
-    this.speed += (throttleForce - brakeForce - drag) * 100 * dt;
+    // Сила от газа (m/s²)
+    const throttleAccel = this.throttle * 0.09;  // макс 9 м/с²
+
+    // Торможение (m/s²)
+    const brakeDecel = this.brake * 0.12;         // макс 12 м/с²
+
+    // Аэродинамическое сопротивление + качение
+    const speedMs = this.speed / 3.6;
+    const drag = 0.0009 * speedMs * speedMs + 0.05;  // квадратичное + трение
+
+    // ERS boost (если есть заряд)
+    const ersBoost = (this.ers > 5 && this.throttle > 70) ? 0.03 : 0;
+
+    // Ускорение (км/ч за секунду)
+    const accelMs2 = throttleAccel + ersBoost * 100 - brakeDecel - drag;
+
+    this.speed += accelMs2 * 3.6 * dt;
     this.speed = Math.max(0, Math.min(CONFIG.MAX_SPEED, this.speed));
-    this.drs = this.speed > 250 && this.throttle > 80;
   }
 
   _shiftGears() {
     const s = this.speed;
     if (s < 5) this.gear = 0;
-    else if (s < 40) this.gear = 1;
-    else if (s < 70) this.gear = 2;
-    else if (s < 100) this.gear = 3;
-    else if (s < 140) this.gear = 4;
-    else if (s < 180) this.gear = 5;
-    else if (s < 230) this.gear = 6;
+    else if (s < 45) this.gear = 1;
+    else if (s < 80) this.gear = 2;
+    else if (s < 120) this.gear = 3;
+    else if (s < 160) this.gear = 4;
+    else if (s < 200) this.gear = 5;
+    else if (s < 240) this.gear = 6;
     else if (s < 280) this.gear = 7;
     else this.gear = 8;
   }
@@ -534,53 +513,50 @@ class CarSimulator {
   _rpmCalc() {
     const ratio = CONFIG.GEAR_RATIOS[this.gear];
     if (ratio > 0 && this.gear > 0) {
-      const target = (this.speed / CONFIG.MAX_SPEED) * CONFIG.MAX_RPM / ratio;
-      this.rpm = Math.max(3000, Math.min(CONFIG.MAX_RPM, target));
+      // Диапазон RPM для передачи: низ передачи = низкий RPM, верх = красная зона
+      const gearMinSpeed = [0, 0, 45, 80, 120, 160, 200, 240, 280][this.gear] || 0;
+      const gearMaxSpeed = [0, 45, 80, 120, 160, 200, 240, 280, 340][this.gear] || 340;
+      const frac = Math.max(0, Math.min(1, (this.speed - gearMinSpeed) / (gearMaxSpeed - gearMinSpeed)));
+      this.rpm = 5000 + frac * 10000;  // 5000 - 15000
     } else {
-      this.rpm = 3000 + this.throttle * 50;
+      this.rpm = 3000 + this.throttle * 30;
     }
   }
 
   _ers(dt) {
-    if (this.throttle > 50) {
-      this.ers = Math.max(0, this.ers - 0.05 * dt * 60);
+    if (this.throttle > 70) {
+      this.ers = Math.max(0, this.ers - 1.5 * dt);
     } else if (this.brake > 20) {
-      this.ers = Math.min(100, this.ers + 0.1 * dt * 60);
+      this.ers = Math.min(100, this.ers + 2.5 * dt);
     }
   }
 
   _fuel(dt) {
-    this.fuel = Math.max(0, this.fuel - 0.0005 * dt * 60 * (1 + this.throttle / 100));
+    this.fuel = Math.max(0, this.fuel - 0.08 * dt * (0.5 + this.throttle / 100));
   }
 
   _tires(dt) {
     for (let i = 0; i < 4; i++) {
-      const target = 85 + this.speed * 0.05 + this.brake * 0.1;
-      this.tireTemp[i] += (target - this.tireTemp[i]) * 0.05 * dt * 10;
-      this.tireWear[i] = Math.min(100, this.tireWear[i] + 0.01 * dt * 60);
+      const target = 85 + this.speed * 0.04 + this.brake * 0.15;
+      this.tireTemp[i] += (target - this.tireTemp[i]) * 0.5 * dt;
+      this.tireWear[i] = Math.min(100, this.tireWear[i] + 0.03 * dt);
     }
   }
 
   _move(dt) {
     const speedMs = this.speed / 3.6;
-    const step = speedMs * dt * 0.5;
-    this.trackIndex = (this.trackIndex + step) % CONFIG.TRACK_POINTS.length;
+    this.distance += speedMs * dt;
 
-    const idx = Math.floor(this.trackIndex);
-    const frac = this.trackIndex - idx;
-    const p1 = CONFIG.TRACK_POINTS[idx % CONFIG.TRACK_POINTS.length];
-    const p2 = CONFIG.TRACK_POINTS[(idx + 1) % CONFIG.TRACK_POINTS.length];
+    const pose = getTrackPose(this.distance);
+    this.position = [pose.x, pose.y, pose.angle];
 
-    this.position[0] = p1[0] + (p2[0] - p1[0]) * frac;
-    this.position[1] = p1[1] + (p2[1] - p1[1]) * frac;
-    this.position[2] = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
-
-    // Lap detection
-    if (idx === 0 && frac < 0.1 && this.lapTime > 8) {
+    // Проверка круга
+    const totalLaps = Math.floor(this.distance / TRACK_LENGTH);
+    if (totalLaps > this.lap && this.lapTime > 10) {
       if (this.bestLap === null || this.lapTime < this.bestLap) {
         this.bestLap = this.lapTime;
       }
-      this.lap++;
+      this.lap = totalLaps;
       this.lapStart = performance.now() / 1000;
     }
   }
@@ -607,28 +583,20 @@ class CarSimulator {
 }
 
 /* ============================================================
-   UI UPDATER
+   UI
    ============================================================ */
 const UI = {
   el(id) { return document.getElementById(id); },
 
   update(data) {
-    // Speed
     this.el('speed').textContent = data.speed.toFixed(0);
     this.el('speedBar').style.width = (data.speed / CONFIG.MAX_SPEED * 100) + '%';
-
-    // RPM
     this.el('rpm').textContent = data.rpm.toFixed(0);
     this.el('rpmBar').style.width = (data.rpm / CONFIG.MAX_RPM * 100) + '%';
-
-    // Gear
     this.el('gear').textContent = data.gear > 0 ? data.gear : 'N';
 
-    // DRS
-    const drs = this.el('drsBadge');
-    drs.classList.toggle('active', data.drs);
+    this.el('drsBadge').classList.toggle('active', data.drs);
 
-    // Throttle / Brake
     const thrBar = this.el('throttleBar');
     thrBar.style.width = data.throttle + '%';
     thrBar.textContent = data.throttle.toFixed(0) + '%';
@@ -637,28 +605,20 @@ const UI = {
     brkBar.style.width = data.brake + '%';
     brkBar.textContent = data.brake.toFixed(0) + '%';
 
-    // Steering
     const s = Math.max(-100, Math.min(100, data.steering));
     const sBar = this.el('steeringBar');
-    if (s >= 0) {
-      sBar.style.left = '50%';
-      sBar.style.width = (s * 2.5) + 'px';
-    } else {
-      sBar.style.left = (50 + s * 2.5 / 5) + '%';
-      sBar.style.width = Math.abs(s * 2.5) + 'px';
-    }
+    // Ширина относительно центра: макс отклонение = 40% от центра
+    sBar.style.left = (50 + s * 0.4) + '%';
+    sBar.style.width = Math.abs(s * 0.8) + 'px';
     this.el('steeringValue').textContent = s.toFixed(0) + '°';
 
-    // Lap info
     this.el('lapCount').textContent = data.lap;
     this.el('currentLap').textContent = this.formatTime(data.lapTime);
     this.el('bestLap').textContent = data.bestLap ? this.formatTime(data.bestLap) : '--.---';
 
-    // ERS / Fuel
     this.el('ersBar').style.width = data.ers + '%';
     this.el('fuelBar').style.width = data.fuel + '%';
 
-    // Tires
     const labels = ['FL', 'FR', 'RL', 'RR'];
     for (let i = 0; i < 4; i++) {
       const t = data.tireTemp[i];
@@ -686,61 +646,68 @@ const UI = {
    ============================================================ */
 const TrackMap = {
   init() {
-    const xs = CONFIG.TRACK_POINTS.map(p => p[0]);
-    const ys = CONFIG.TRACK_POINTS.map(p => p[1]);
+    const xs = TRACK.map(p => p[0]);
+    const ys = TRACK.map(p => p[1]);
 
-    const trackTrace = {
-      x: xs, y: ys,
-      mode: 'lines',
-      line: { color: '#333', width: 25 },
-      hoverinfo: 'skip',
-      showlegend: false
+    const trackOuter = {
+      x: xs, y: ys, mode: 'lines',
+      line: { color: '#2A2A33', width: 22 },
+      hoverinfo: 'skip', showlegend: false
     };
-
     const trackInner = {
-      x: xs, y: ys,
-      mode: 'lines',
-      line: { color: '#555', width: 2 },
-      hoverinfo: 'skip',
-      showlegend: false
+      x: xs, y: ys, mode: 'lines',
+      line: { color: '#4A4A55', width: 12 },
+      hoverinfo: 'skip', showlegend: false
     };
-
+    const trackCenter = {
+      x: xs, y: ys, mode: 'lines',
+      line: { color: '#666', width: 1, dash: 'dot' },
+      hoverinfo: 'skip', showlegend: false
+    };
+    // Стартовая линия
+    const startLine = {
+      x: [TRACK[0][0] - 10, TRACK[0][0] + 10],
+      y: [TRACK[0][1], TRACK[0][1]],
+      mode: 'lines',
+      line: { color: '#FFF', width: 3 },
+      hoverinfo: 'skip', showlegend: false
+    };
     const carTrace = {
-      x: [xs[0]], y: [ys[0]],
+      x: [TRACK[0][0]], y: [TRACK[0][1]],
       mode: 'markers',
       marker: {
-        size: 22, color: '#E10600', symbol: 'triangle-up',
+        size: 20, color: '#E10600', symbol: 'triangle-up',
         line: { color: '#fff', width: 2 }
       },
-      name: 'CAR',
-      hoverinfo: 'skip',
-      showlegend: false
+      hoverinfo: 'skip', showlegend: false
     };
 
     const layout = {
       paper_bgcolor: '#1F1F27',
       plot_bgcolor: '#1F1F27',
       margin: { l: 20, r: 20, t: 30, b: 20 },
-      xaxis: { showgrid: false, zeroline: false, showticklabels: false, color: '#666' },
+      xaxis: { showgrid: false, zeroline: false, showticklabels: false },
       yaxis: { showgrid: false, zeroline: false, showticklabels: false,
-               scaleanchor: 'x', scaleratio: 1, color: '#666' },
-      title: { text: 'TRACK MAP', font: { color: '#888', size: 12, family: 'Arial' }, x: 0.02 },
+               scaleanchor: 'x', scaleratio: 1 },
+      title: { text: 'TRACK MAP', font: { color: '#888', size: 12 }, x: 0.02 },
       showlegend: false
     };
 
-    Plotly.newPlot('trackMap', [trackTrace, trackInner, carTrace], layout, {
-      displayModeBar: false,
-      responsive: true
+    Plotly.newPlot('trackMap', [trackOuter, trackInner, trackCenter, startLine, carTrace], layout, {
+      displayModeBar: false, responsive: true
     });
   },
 
-  update(position, angle) {
-    const deg = (angle * 180 / Math.PI) + 90; // triangle-up default points up
+  update(position) {
+    const angleDeg = position[2] * 180 / Math.PI;
+    // Plotly marker angle: 0° = вверх, против часовой; triangle-up уже смотрит вверх
+    // Мы хотим, чтобы нос смотрел по направлению движения
+    const markerAngle = angleDeg - 90;
     Plotly.restyle('trackMap', {
       x: [[position[0]]],
       y: [[position[1]]],
-      'marker.angle': [deg]
-    }, [2]);
+      'marker.angle': [markerAngle]
+    }, [4]);
   }
 };
 
@@ -748,70 +715,47 @@ const TrackMap = {
    HISTORY CHART
    ============================================================ */
 const HistoryChart = {
-  times: [],
-  speeds: [],
-  throttles: [],
-  brakes: [],
-  t0: null,
+  times: [], speeds: [], throttles: [], brakes: [],
+  t0: null, plotDiv: null, layout: null,
 
   init() {
-    const speedTrace = {
-      x: [], y: [],
-      type: 'scatter', mode: 'lines',
-      name: 'Speed (km/h)',
-      line: { color: '#E10600', width: 2 }
-    };
-    const throttleTrace = {
-      x: [], y: [],
-      type: 'scatter', mode: 'lines',
-      name: 'Throttle %',
-      line: { color: '#00D2BE', width: 1.5 },
-      yaxis: 'y2'
-    };
-    const brakeTrace = {
-      x: [], y: [],
-      type: 'scatter', mode: 'lines',
-      name: 'Brake %',
-      line: { color: '#FFD700', width: 1.5 },
-      yaxis: 'y2'
-    };
-
     const layout = {
       paper_bgcolor: '#1F1F27',
       plot_bgcolor: '#1F1F27',
       font: { color: '#ccc' },
-      margin: { l: 50, r: 50, t: 30, b: 30 },
+      margin: { l: 55, r: 55, t: 35, b: 35 },
       xaxis: {
-        title: 'Time (s)',
-        color: '#888',
+        title: 'Time (s)', color: '#888',
         gridcolor: '#2A2A33',
-        titlefont: { size: 11 }
+        range: [0, 30]
       },
       yaxis: {
-        title: 'Speed (km/h)',
-        color: '#E10600',
+        title: 'Speed (km/h)', color: '#E10600',
         gridcolor: '#2A2A33',
         range: [0, CONFIG.MAX_SPEED + 20]
       },
       yaxis2: {
-        title: 'Inputs %',
-        overlaying: 'y',
-        side: 'right',
-        color: '#00D2BE',
-        range: [0, 100]
+        title: 'Inputs %', overlaying: 'y', side: 'right',
+        color: '#00D2BE', range: [0, 100]
       },
       legend: {
-        orientation: 'h',
-        y: 1.12,
-        x: 0,
+        orientation: 'h', y: 1.12, x: 0,
         font: { size: 11, color: '#ccc' }
-      },
-      showlegend: true
+      }
     };
+    this.layout = layout;
 
-    Plotly.newPlot('historyChart', [speedTrace, throttleTrace, brakeTrace], layout, {
-      displayModeBar: false,
-      responsive: true
+    const data = [
+      { x: [], y: [], type: 'scatter', mode: 'lines',
+        name: 'Speed (km/h)', line: { color: '#E10600', width: 2 } },
+      { x: [], y: [], type: 'scatter', mode: 'lines',
+        name: 'Throttle %', line: { color: '#00D2BE', width: 1.5 }, yaxis: 'y2' },
+      { x: [], y: [], type: 'scatter', mode: 'lines',
+        name: 'Brake %', line: { color: '#FFD700', width: 1.5 }, yaxis: 'y2' }
+    ];
+
+    Plotly.newPlot('historyChart', data, layout, {
+      displayModeBar: false, responsive: true
     });
   },
 
@@ -832,6 +776,11 @@ const HistoryChart = {
       this.brakes.shift();
     }
 
+    // Скользящее окно по X
+    const xMin = Math.max(0, t - 30);
+    const xMax = Math.max(30, t);
+    this.layout.xaxis.range = [xMin, xMax];
+
     Plotly.react('historyChart', [
       { x: this.times, y: this.speeds, type: 'scatter', mode: 'lines',
         name: 'Speed (km/h)', line: { color: '#E10600', width: 2 } },
@@ -839,14 +788,12 @@ const HistoryChart = {
         name: 'Throttle %', line: { color: '#00D2BE', width: 1.5 }, yaxis: 'y2' },
       { x: this.times, y: this.brakes, type: 'scatter', mode: 'lines',
         name: 'Brake %', line: { color: '#FFD700', width: 1.5 }, yaxis: 'y2' }
-    ], document.getElementById('historyChart').layout, { displayModeBar: false });
+    ], this.layout, { displayModeBar: false, responsive: true });
   },
 
   reset() {
-    this.times = [];
-    this.speeds = [];
-    this.throttles = [];
-    this.brakes = [];
+    this.times = []; this.speeds = [];
+    this.throttles = []; this.brakes = [];
     this.t0 = null;
   }
 };
@@ -857,26 +804,34 @@ const HistoryChart = {
 const car = new CarSimulator();
 let paused = false;
 let lastTime = performance.now();
+let lastUIUpdate = 0;
+let lastChartUpdate = 0;
 
 function loop(now) {
-  const dt = Math.min(0.1, (now - lastTime) / 1000);
+  const dt = Math.min(0.05, (now - lastTime) / 1000);
   lastTime = now;
 
   if (!paused) {
     car.update(dt);
     const data = car.getData();
 
-    UI.update(data);
-    TrackMap.update(data.position, data.position[2]);
-    HistoryChart.push(data);
+    // UI обновляем ~20 раз/сек
+    if (now - lastUIUpdate > 50) {
+      UI.update(data);
+      TrackMap.update(data.position);
+      lastUIUpdate = now;
+    }
+
+    // График ~10 раз/сек
+    if (now - lastChartUpdate > 100) {
+      HistoryChart.push(data);
+      lastChartUpdate = now;
+    }
   }
 
   requestAnimationFrame(loop);
 }
 
-/* ============================================================
-   INIT
-   ============================================================ */
 window.addEventListener('load', () => {
   TrackMap.init();
   HistoryChart.init();
@@ -897,4 +852,4 @@ window.addEventListener('load', () => {
 });
 </script>
 </body>
-</html>
+ </html>
