@@ -7,16 +7,11 @@
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
-    background: #15151E;
-    color: #fff;
+    background: #15151E; color: #fff;
     font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    min-height: 100vh;
-    padding: 20px;
-    padding-bottom: 100px;
+    min-height: 100vh; padding: 20px; padding-bottom: 100px;
   }
-
   .header {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 20px; padding-bottom: 15px;
@@ -24,20 +19,10 @@
   }
   .header h1 { font-size: 28px; letter-spacing: 2px; font-weight: 900; }
   .header h1 span { color: #E10600; }
-
-  .status {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
-  }
-  .dot {
-    width: 12px; height: 12px; border-radius: 50%;
-    background: #E10600; animation: pulse 1s infinite;
-  }
+  .status { display: flex; align-items: center; gap: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: #E10600; animation: pulse 1s infinite; }
   .dot.live { background: #00D2BE; }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(.8);} }
 
   .grid { display: grid; gap: 15px; margin-bottom: 15px; }
   .grid-3 { grid-template-columns: repeat(3, 1fr); }
@@ -47,40 +32,26 @@
   .card {
     background: #1F1F27; border-radius: 10px; padding: 15px;
     border-left: 5px solid #E10600;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 15px rgba(0,0,0,.4);
   }
-  .card-title {
-    color: #888; font-size: 11px; text-transform: uppercase;
-    letter-spacing: 2px; margin-bottom: 8px; font-weight: 600;
-  }
-  .metric-value {
-    font-size: 42px; font-weight: 900;
-    font-family: 'Courier New', monospace; line-height: 1;
-  }
+  .card-title { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-weight: 600; }
+  .metric-value { font-size: 42px; font-weight: 900; font-family: 'Courier New', monospace; line-height: 1; }
   .metric-unit { font-size: 16px; color: #666; margin-left: 4px; }
-
   .gear-display {
-    font-size: 96px; color: #E10600; font-weight: 900;
-    text-align: center; font-family: 'Courier New', monospace;
-    line-height: 1; text-shadow: 0 0 30px rgba(225, 6, 0, 0.5);
+    font-size: 96px; color: #E10600; font-weight: 900; text-align: center;
+    font-family: 'Courier New', monospace; line-height: 1;
+    text-shadow: 0 0 30px rgba(225,6,0,.5);
   }
-
   .drs-badge {
     text-align: center; padding: 8px; border-radius: 5px;
     font-weight: 900; letter-spacing: 3px; margin-top: 10px;
-    background: #333; color: #666; transition: all 0.2s;
+    background: #333; color: #666; transition: all .2s;
   }
-  .drs-badge.active {
-    background: #00D2BE; color: #15151E;
-    box-shadow: 0 0 20px rgba(0, 210, 190, 0.6);
-  }
+  .drs-badge.active { background: #00D2BE; color: #15151E; box-shadow: 0 0 20px rgba(0,210,190,.6); }
 
-  .bar-container {
-    background: #0F0F15; height: 30px; border-radius: 5px;
-    overflow: hidden; position: relative; margin-top: 8px;
-  }
+  .bar-container { background: #0F0F15; height: 30px; border-radius: 5px; overflow: hidden; position: relative; margin-top: 8px; }
   .bar-fill {
-    height: 100%; transition: width 0.1s linear;
+    height: 100%; transition: width .1s linear;
     display: flex; align-items: center; justify-content: flex-end;
     padding-right: 8px; font-weight: bold; font-size: 14px; color: #15151E;
   }
@@ -91,185 +62,97 @@
 
   .tire-card {
     background: #1F1F27; border-radius: 10px; padding: 12px;
-    text-align: center; border-top: 4px solid #E10600;
-    transition: border-color 0.3s;
+    text-align: center; border-top: 4px solid #E10600; transition: border-color .3s;
   }
   .tire-label { font-size: 12px; color: #888; letter-spacing: 2px; font-weight: bold; }
-  .tire-temp {
-    font-size: 28px; font-weight: 900;
-    font-family: 'Courier New', monospace; margin: 5px 0;
-  }
-  .tire-wear-bar {
-    background: #0F0F15; height: 6px; border-radius: 3px;
-    overflow: hidden; margin-top: 6px;
-  }
-  .tire-wear-fill { height: 100%; background: #FFD700; transition: width 0.3s; }
+  .tire-temp { font-size: 28px; font-weight: 900; font-family: 'Courier New', monospace; margin: 5px 0; }
+  .tire-wear-bar { background: #0F0F15; height: 6px; border-radius: 3px; overflow: hidden; margin-top: 6px; }
+  .tire-wear-fill { height: 100%; background: #FFD700; transition: width .3s; }
 
-  .chart-container {
-    background: #1F1F27; border-radius: 10px; padding: 10px; height: 320px;
-  }
+  .chart-container { background: #1F1F27; border-radius: 10px; padding: 10px; height: 320px; }
 
-  .track-wrapper {
-    position: relative; background: #1F1F27;
-    border-radius: 10px; overflow: hidden;
-  }
+  .track-wrapper { position: relative; background: #1F1F27; border-radius: 10px; overflow: hidden; }
   #trackMap { height: 420px; width: 100%; }
 
-  .zoom-controls {
-    position: absolute; top: 10px; right: 10px;
-    display: flex; flex-direction: column; gap: 6px; z-index: 10;
-  }
+  .zoom-controls { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 6px; z-index: 10; }
   .zoom-btn {
-    width: 38px; height: 38px;
-    background: rgba(225, 6, 0, 0.9); color: white;
-    border: none; border-radius: 8px;
-    font-size: 20px; font-weight: bold; cursor: pointer;
+    width: 38px; height: 38px; background: rgba(225,6,0,.9); color: white;
+    border: none; border-radius: 8px; font-size: 20px; font-weight: bold; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    transition: all 0.15s; user-select: none;
-    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,.5); transition: all .15s;
+    user-select: none; -webkit-tap-highlight-color: transparent;
   }
-  .zoom-btn:active { transform: scale(0.9); background: #FF1717; }
-  .zoom-btn.reset { background: rgba(0, 210, 190, 0.9); color: #15151E; font-size: 18px; }
+  .zoom-btn:active { transform: scale(.9); background: #FF1717; }
+  .zoom-btn.reset { background: rgba(0,210,190,.9); color: #15151E; font-size: 18px; }
 
-  .lap-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 8px 0; border-bottom: 1px solid #2A2A33;
-  }
+  .lap-row { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid #2A2A33; }
   .lap-row:last-child { border-bottom: none; }
   .lap-label { color: #888; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
   .lap-value { font-family: 'Courier New', monospace; font-size: 22px; font-weight: bold; color: #00D2BE; }
   .lap-value.best { color: #A855F7; }
 
-  /* СЕКТОРА */
-  .sectors {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 10px;
-  }
+  .sectors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
   .sector {
-    background: #0F0F15;
-    border-radius: 8px;
-    padding: 12px 10px;
-    text-align: center;
-    border-top: 3px solid #333;
-    transition: all 0.2s;
+    background: #0F0F15; border-radius: 8px; padding: 12px 10px;
+    text-align: center; border-top: 3px solid #333; transition: all .2s;
   }
-  .sector.active { border-top-color: #FFD700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+  .sector.active { border-top-color: #FFD700; box-shadow: 0 0 15px rgba(255,215,0,.3); }
   .sector.done { border-top-color: #00D2BE; }
-  .sector.best { border-top-color: #A855F7; }
+  .sector.best { border-top-color: #A855F7; box-shadow: 0 0 15px rgba(168,85,247,.3); }
   .sector-num { font-size: 11px; color: #666; letter-spacing: 2px; font-weight: bold; }
-  .sector-time {
-    font-size: 20px; font-family: 'Courier New', monospace;
-    font-weight: bold; color: #fff; margin: 4px 0 2px;
-  }
-  .sector-speed {
-    font-size: 11px; color: #888; font-family: 'Courier New', monospace;
-  }
-  .sector-avg {
-    font-size: 10px; color: #666; margin-top: 3px;
-  }
+  .sector-time { font-size: 20px; font-family: 'Courier New', monospace; font-weight: bold; color: #fff; margin: 4px 0 2px; }
+  .sector-speed { font-size: 11px; color: #888; font-family: 'Courier New', monospace; }
+  .sector-avg { font-size: 10px; color: #666; margin-top: 3px; }
 
-  /* ИСТОРИЯ КРУГОВ */
   .laps-history {
-    background: #1F1F27;
-    border-radius: 10px;
-    padding: 15px;
-    max-height: 400px;
-    overflow-y: auto;
+    background: #1F1F27; border-radius: 10px; padding: 15px;
+    max-height: 400px; overflow-y: auto;
   }
   .laps-history::-webkit-scrollbar { width: 6px; }
   .laps-history::-webkit-scrollbar-track { background: #0F0F15; border-radius: 3px; }
   .laps-history::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
   .lap-entry {
-    display: grid;
-    grid-template-columns: 40px 1fr 1fr 1fr 1.3fr;
-    gap: 8px;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 6px;
-    background: #17171E;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    align-items: center;
-    transition: all 0.2s;
+    display: grid; grid-template-columns: 40px 1fr 1fr 1fr 1.3fr; gap: 8px;
+    padding: 10px; border-radius: 6px; margin-bottom: 6px;
+    background: #17171E; font-family: 'Courier New', monospace;
+    font-size: 13px; align-items: center; transition: all .2s;
   }
   .lap-entry:hover { background: #1F1F2A; }
   .lap-entry.best-lap {
-    background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.05));
+    background: linear-gradient(90deg, rgba(168,85,247,.15), rgba(168,85,247,.05));
     border-left: 3px solid #A855F7;
-  }
-  .lap-entry.prev-best {
-    background: linear-gradient(90deg, rgba(0, 210, 190, 0.1), rgba(0, 210, 190, 0.02));
-    border-left: 3px solid #00D2BE;
   }
   .lap-num { color: #E10600; font-weight: bold; font-size: 15px; }
   .lap-total { color: #fff; font-weight: bold; font-size: 15px; }
   .lap-sector { color: #888; font-size: 12px; text-align: right; }
-  .lap-sector.best-sector { color: #A855F7; font-weight: bold; }
-  .lap-sector.good-sector { color: #00D2BE; }
   .lap-header {
-    display: grid;
-    grid-template-columns: 40px 1fr 1fr 1fr 1.3fr;
-    gap: 8px;
-    padding: 8px 10px;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #666;
-    border-bottom: 1px solid #2A2A33;
-    margin-bottom: 8px;
-    font-family: 'Courier New', monospace;
+    display: grid; grid-template-columns: 40px 1fr 1fr 1fr 1.3fr; gap: 8px;
+    padding: 8px 10px; font-size: 10px; text-transform: uppercase;
+    letter-spacing: 1px; color: #666; border-bottom: 1px solid #2A2A33;
+    margin-bottom: 8px; font-family: 'Courier New', monospace;
   }
-  .laps-empty {
-    text-align: center;
-    color: #555;
-    padding: 40px 20px;
-    font-style: italic;
-    font-size: 14px;
-  }
+  .laps-empty { text-align: center; color: #555; padding: 40px 20px; font-style: italic; font-size: 14px; }
   .laps-title {
-    color: #888; font-size: 11px; text-transform: uppercase;
-    letter-spacing: 2px; margin-bottom: 12px; font-weight: 600;
+    color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 12px; font-weight: 600;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .laps-count {
-    color: #00D2BE; font-family: 'Courier New', monospace;
-    font-size: 13px;
-  }
-  .delta-fast { color: #00D2BE; font-weight: bold; }
-  .delta-slow { color: #E10600; font-weight: bold; }
+  .laps-count { color: #00D2BE; font-family: 'Courier New', monospace; font-size: 13px; }
 
-  .controls {
-    position: fixed; bottom: 20px; right: 20px;
-    display: flex; gap: 10px; z-index: 100;
-  }
+  .controls { position: fixed; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 100; }
   .btn {
-    background: #E10600; color: white; border: none;
-    padding: 12px 20px; border-radius: 8px; font-weight: bold;
-    letter-spacing: 1px; cursor: pointer; font-size: 14px;
-    text-transform: uppercase; transition: all 0.2s;
-    box-shadow: 0 4px 15px rgba(225, 6, 0, 0.4);
+    background: #E10600; color: white; border: none; padding: 12px 20px;
+    border-radius: 8px; font-weight: bold; letter-spacing: 1px; cursor: pointer;
+    font-size: 14px; text-transform: uppercase; transition: all .2s;
+    box-shadow: 0 4px 15px rgba(225,6,0,.4);
   }
   .btn:hover { background: #FF1717; transform: translateY(-2px); }
   .btn.paused { background: #FFD700; color: #15151E; }
 
-  .steering-container {
-    position: relative; height: 60px; background: #0F0F15;
-    border-radius: 5px; margin-top: 10px; overflow: hidden;
-  }
-  .steering-center {
-    position: absolute; left: 50%; top: 0; bottom: 0;
-    width: 2px; background: #444; transform: translateX(-50%);
-  }
-  .steering-bar {
-    position: absolute; top: 15px; height: 30px;
-    background: #FFD700; border-radius: 3px;
-    transition: all 0.1s linear;
-    transform: translateX(-50%);
-  }
+  .steering-container { position: relative; height: 60px; background: #0F0F15; border-radius: 5px; margin-top: 10px; overflow: hidden; }
+  .steering-center { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: #444; transform: translateX(-50%); }
+  .steering-bar { position: absolute; top: 15px; height: 30px; background: #FFD700; border-radius: 3px; transition: all .1s linear; transform: translateX(-50%); }
 
   @media (max-width: 900px) {
     .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
@@ -278,7 +161,6 @@
     #trackMap { height: 320px; }
     .lap-entry, .lap-header { grid-template-columns: 30px 1fr 1fr 1fr 1.2fr; font-size: 11px; gap: 4px; }
     .sector-time { font-size: 16px; }
-    .sector-speed, .sector-avg { font-size: 9px; }
   }
 </style>
 </head>
@@ -286,27 +168,19 @@
 
 <div class="header">
   <h1>🏎️ F1 <span>LIVE TELEMETRY</span></h1>
-  <div class="status">
-    <div class="dot live"></div>
-    <span id="statusText">LIVE</span>
-  </div>
+  <div class="status"><div class="dot live"></div><span>LIVE</span></div>
 </div>
 
-<!-- Row 1: Speed, RPM, Gear -->
 <div class="grid grid-3">
   <div class="card">
     <div class="card-title">SPEED</div>
     <div class="metric-value"><span id="speed">0</span><span class="metric-unit">km/h</span></div>
-    <div class="bar-container">
-      <div class="bar-fill bar-throttle" id="speedBar" style="width:0%"></div>
-    </div>
+    <div class="bar-container"><div class="bar-fill bar-throttle" id="speedBar" style="width:0%"></div></div>
   </div>
   <div class="card">
     <div class="card-title">RPM</div>
     <div class="metric-value"><span id="rpm">0</span><span class="metric-unit">rpm</span></div>
-    <div class="bar-container">
-      <div class="bar-fill bar-brake" id="rpmBar" style="width:0%"></div>
-    </div>
+    <div class="bar-container"><div class="bar-fill bar-brake" id="rpmBar" style="width:0%"></div></div>
   </div>
   <div class="card">
     <div class="card-title" style="text-align:center;">GEAR</div>
@@ -315,7 +189,6 @@
   </div>
 </div>
 
-<!-- Row 2: Throttle, Brake, Steering -->
 <div class="grid grid-3">
   <div class="card">
     <div class="card-title">THROTTLE</div>
@@ -339,14 +212,13 @@
   </div>
 </div>
 
-<!-- Row 3: Track + Session Info (с секторами) -->
 <div class="grid grid-2">
   <div class="track-wrapper">
     <div id="trackMap"></div>
     <div class="zoom-controls">
-      <button class="zoom-btn" id="zoomIn" title="Приблизить">＋</button>
-      <button class="zoom-btn" id="zoomOut" title="Отдалить">−</button>
-      <button class="zoom-btn reset" id="zoomReset" title="Сброс">⟲</button>
+      <button class="zoom-btn" id="zoomIn">＋</button>
+      <button class="zoom-btn" id="zoomOut">−</button>
+      <button class="zoom-btn reset" id="zoomReset">⟲</button>
     </div>
   </div>
   <div class="card">
@@ -382,11 +254,10 @@
   </div>
 </div>
 
-<!-- Row 4: SECTORS -->
 <div class="card" style="border-left-color:#FFD700; margin-bottom:15px;">
   <div class="card-title" style="display:flex;justify-content:space-between;">
     <span>SECTOR TIMES (текущий круг)</span>
-    <span style="color:#666;font-size:10px;">S1 · S2 · S3 · AVG SPEED</span>
+    <span style="color:#666;font-size:10px;">ВРЕМЯ · СКОРОСТЬ · СРЕДНЯЯ</span>
   </div>
   <div class="sectors">
     <div class="sector" id="sector1">
@@ -410,7 +281,6 @@
   </div>
 </div>
 
-<!-- Row 5: Tires -->
 <div class="grid grid-4" style="margin-bottom:15px;">
   <div class="tire-card" id="tireFL">
     <div class="tire-label">FL</div>
@@ -434,7 +304,6 @@
   </div>
 </div>
 
-<!-- Row 6: History Chart + Laps History -->
 <div class="grid grid-2">
   <div class="chart-container" id="historyChart"></div>
   <div class="laps-history">
@@ -443,11 +312,7 @@
       <span class="laps-count" id="lapsCount">0 кругов</span>
     </div>
     <div class="lap-header">
-      <span>LAP</span>
-      <span>TOTAL</span>
-      <span>S1</span>
-      <span>S2</span>
-      <span>S3</span>
+      <span>LAP</span><span>TOTAL</span><span>S1</span><span>S2</span><span>S3</span>
     </div>
     <div id="lapsList">
       <div class="laps-empty">Пока нет пройденных кругов...<br>Проедь полный круг</div>
@@ -478,7 +343,7 @@ const GEAR_SPEED_RANGES = [
 ];
 
 /* ============================================================
-   TRACK — плавная замкнутая трасса
+   TRACK
    ============================================================ */
 const TRACK_CONTROL_POINTS = [
   [0, 0], [100, 0], [200, 0], [300, 5],
@@ -493,25 +358,20 @@ const TRACK_CONTROL_POINTS = [
 ];
 
 function catmullRom(p0, p1, p2, p3, t) {
-  const t2 = t * t;
-  const t3 = t2 * t;
+  const t2 = t * t, t3 = t2 * t;
   return [
     0.5 * ((2*p1[0]) + (-p0[0]+p2[0])*t + (2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*t2 + (-p0[0]+3*p1[0]-3*p2[0]+p3[0])*t3),
     0.5 * ((2*p1[1]) + (-p0[1]+p2[1])*t + (2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2 + (-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3)
   ];
 }
 
-function buildSmoothTrack(controlPoints, samplesPerSegment = 20) {
-  const pts = [];
-  const n = controlPoints.length;
+function buildSmoothTrack(cp, samples = 20) {
+  const pts = [], n = cp.length;
   for (let i = 0; i < n; i++) {
-    const p0 = controlPoints[(i - 1 + n) % n];
-    const p1 = controlPoints[i];
-    const p2 = controlPoints[(i + 1) % n];
-    const p3 = controlPoints[(i + 2) % n];
-    for (let s = 0; s < samplesPerSegment; s++) {
-      const t = s / samplesPerSegment;
-      pts.push(catmullRom(p0, p1, p2, p3, t));
+    const p0 = cp[(i - 1 + n) % n], p1 = cp[i];
+    const p2 = cp[(i + 1) % n], p3 = cp[(i + 2) % n];
+    for (let s = 0; s < samples; s++) {
+      pts.push(catmullRom(p0, p1, p2, p3, s / samples));
     }
   }
   pts.push([...pts[0]]);
@@ -530,12 +390,7 @@ for (let i = 0; i < TRACK.length - 1; i++) {
   TRACK_LENGTH += len;
 }
 
-// 3 сектора — делим длину круга на 3 равные части
-const SECTOR_DISTANCES = [
-  TRACK_LENGTH / 3,
-  TRACK_LENGTH * 2 / 3,
-  TRACK_LENGTH
-];
+const SECTOR_DISTANCES = [TRACK_LENGTH / 3, TRACK_LENGTH * 2 / 3, TRACK_LENGTH];
 
 function getTrackPose(s) {
   s = ((s % TRACK_LENGTH) + TRACK_LENGTH) % TRACK_LENGTH;
@@ -543,12 +398,13 @@ function getTrackPose(s) {
   for (let i = 0; i < SEGMENT_LENGTHS.length; i++) {
     if (acc + SEGMENT_LENGTHS[i] >= s) {
       const frac = (s - acc) / SEGMENT_LENGTHS[i];
-      const p1 = TRACK[i];
-      const p2 = TRACK[i + 1];
-      const x = p1[0] + (p2[0] - p1[0]) * frac;
-      const y = p1[1] + (p2[1] - p1[1]) * frac;
-      const angle = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
-      return { x, y, angle, index: i };
+      const p1 = TRACK[i], p2 = TRACK[i + 1];
+      return {
+        x: p1[0] + (p2[0] - p1[0]) * frac,
+        y: p1[1] + (p2[1] - p1[1]) * frac,
+        angle: Math.atan2(p2[1] - p1[1], p2[0] - p1[0]),
+        index: i
+      };
     }
     acc += SEGMENT_LENGTHS[i];
   }
@@ -557,16 +413,12 @@ function getTrackPose(s) {
 }
 
 function getCurvatureAhead(s, lookahead) {
-  const p1 = getTrackPose(s);
-  const p2 = getTrackPose(s + lookahead);
-  let dAngle = p2.angle - p1.angle;
-  while (dAngle > Math.PI) dAngle -= 2 * Math.PI;
-  while (dAngle < -Math.PI) dAngle += 2 * Math.PI;
-  return dAngle;
+  const p1 = getTrackPose(s), p2 = getTrackPose(s + lookahead);
+  let d = p2.angle - p1.angle;
+  while (d > Math.PI) d -= 2 * Math.PI;
+  while (d < -Math.PI) d += 2 * Math.PI;
+  return d;
 }
-
-// Цвет секторов
-const SECTOR_COLORS = ['#FFD700', '#00D2BE', '#E10600'];
 
 /* ============================================================
    CAR SIMULATOR
@@ -575,39 +427,27 @@ class CarSimulator {
   constructor() { this.reset(); }
 
   reset() {
-    this.speed = 0;
-    this.rpm = 3000;
-    this.gear = 0;
-    this.throttle = 0;
-    this.brake = 0;
-    this.steering = 0;
-    this.drs = false;
-    this.ers = 100;
-    this.fuel = 100;
+    this.speed = 0; this.rpm = 3000; this.gear = 0;
+    this.throttle = 0; this.brake = 0; this.steering = 0;
+    this.drs = false; this.ers = 100; this.fuel = 100;
     this.tireTemp = [80, 80, 80, 80];
     this.tireWear = [0, 0, 0, 0];
-    this.lap = 0;
-    this.lapTime = 0;
-    this.bestLap = null;
-    this.previousLap = null;
+    this.lap = 0; this.lapTime = 0;
+    this.bestLap = null; this.previousLap = null;
     this.lapStart = performance.now() / 1000;
     this.distance = 0;
 
     // Сектора текущего круга
-    this.sector = 0;              // 0, 1, 2
+    this.sector = 0;
     this.sectorStartTime = performance.now() / 1000;
-    this.sectorStartDistance = 0;
-    this.sectorSpeeds = [[], [], []];     // для avg
-    this.sectorTimes = [null, null, null]; // времена секторов текущего круга
+    this.sectorSpeeds = [[], [], []];
     this.sectorMaxSpeeds = [0, 0, 0];
     this.sectorAvgSpeeds = [0, 0, 0];
+    this.currentSectorTime = 0;
 
-    // История кругов
+    // История кругов и лучших секторов
     this.lapsHistory = [];
-    // Лучшие времена секторов за всё время
     this.bestSectors = [null, null, null];
-    // Лучшее время круга
-    this.bestLapTime = null;
   }
 
   update(dt) {
@@ -625,13 +465,11 @@ class CarSimulator {
   _driverInput() {
     const speedMs = this.speed / 3.6;
     const lookahead = 30 + speedMs * 2.5;
-
     let maxCurv = 0;
     for (let d = 20; d <= lookahead; d += 15) {
       const c = Math.abs(getCurvatureAhead(this.distance, d));
       if (c > maxCurv) maxCurv = c;
     }
-
     const targetSpeed = Math.max(70, CONFIG.MAX_SPEED * (1 - maxCurv * 1.6));
     const speedDiff = targetSpeed - this.speed;
 
@@ -645,7 +483,6 @@ class CarSimulator {
       this.throttle = 30 + speedDiff * 1.5;
       this.brake = 0;
     }
-
     const angleToTrack = getCurvatureAhead(this.distance, 10) * 30;
     this.steering = Math.max(-100, Math.min(100, angleToTrack * 100));
     this.drs = maxCurv < 0.05 && this.speed > 250;
@@ -657,27 +494,22 @@ class CarSimulator {
     const speedMs = this.speed / 3.6;
     const drag = 0.0009 * speedMs * speedMs + 0.05;
     const ersBoost = (this.ers > 5 && this.throttle > 70) ? 0.03 : 0;
-
     const accelMs2 = throttleAccel + ersBoost * 100 - brakeDecel - drag;
     this.speed += accelMs2 * 3.6 * dt;
     this.speed = Math.max(0, Math.min(CONFIG.MAX_SPEED, this.speed));
   }
 
   _shiftGears() {
-    const s = this.speed;
     let g = 0;
     for (let i = 1; i <= CONFIG.MAX_GEAR; i++) {
-      if (s >= GEAR_SPEED_RANGES[i][0]) g = i;
+      if (this.speed >= GEAR_SPEED_RANGES[i][0]) g = i;
     }
-    if (s < 5) g = 0;
+    if (this.speed < 5) g = 0;
     this.gear = g;
   }
 
   _rpmCalc() {
-    if (this.gear === 0) {
-      this.rpm = 3000 + this.throttle * 30;
-      return;
-    }
+    if (this.gear === 0) { this.rpm = 3000 + this.throttle * 30; return; }
     const [minS, maxS] = GEAR_SPEED_RANGES[this.gear];
     const frac = Math.max(0, Math.min(1, (this.speed - minS) / (maxS - minS)));
     this.rpm = 5000 + frac * 10000;
@@ -685,4 +517,53 @@ class CarSimulator {
 
   _ers(dt) {
     if (this.throttle > 70) this.ers = Math.max(0, this.ers - 1.5 * dt);
-    else if (this.brake > 20) this.ers =
+    else if (this.brake > 20) this.ers = Math.min(100, this.ers + 2.5 * dt);
+  }
+
+  _fuel(dt) {
+    this.fuel = Math.max(0, this.fuel - 0.08 * dt * (0.5 + this.throttle / 100));
+  }
+
+  _tires(dt) {
+    for (let i = 0; i < 4; i++) {
+      const target = 85 + this.speed * 0.04 + this.brake * 0.15;
+      this.tireTemp[i] += (target - this.tireTemp[i]) * 0.5 * dt;
+      this.tireWear[i] = Math.min(100, this.tireWear[i] + 0.03 * dt);
+    }
+  }
+
+  _move(dt) {
+    const speedMs = this.speed / 3.6;
+    this.distance += speedMs * dt;
+
+    // Записываем скорость для текущего сектора
+    if (this.sectorSpeeds[this.sector].length < 200) {
+      this.sectorSpeeds[this.sector].push(this.speed);
+    }
+
+    // Проверяем переход между секторами
+    this._checkSectorChange();
+
+    // Проверяем круг
+    const totalLaps = Math.floor(this.distance / TRACK_LENGTH);
+    if (totalLaps > this.lap && this.lapTime > 8) {
+      this._completeLap(totalLaps);
+    }
+  }
+
+  _checkSectorChange() {
+    const distInLap = this.distance % TRACK_LENGTH;
+
+    // Определяем текущий сектор по расстоянию внутри круга
+    let newSector = 0;
+    if (distInLap < SECTOR_DISTANCES[0]) newSector = 0;
+    else if (distInLap < SECTOR_DISTANCES[1]) newSector = 1;
+    else newSector = 2;
+
+    if (newSector !== this.sector) {
+      // Завершили старый сектор
+      const now = performance.now() / 1000;
+      const sectorTime = now - this.sectorStartTime;
+
+      if (sectorTime > 1 && this.sectorSpeeds[this.sector].length > 3) {
+        this.sectorMaxSpeeds[this.sector] = Math.max(...this.sectorSpeeds[this.sector]);
