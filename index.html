@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🏎️ F1 LIVE TELEMETRY</title>
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 <style>
@@ -14,7 +14,6 @@
     font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     min-height: 100vh;
     padding: 20px;
-    padding-bottom: 100px;
   }
 
   .header {
@@ -30,13 +29,18 @@
   .header h1 span { color: #E10600; }
 
   .status {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   .dot {
     width: 12px; height: 12px; border-radius: 50%;
-    background: #E10600; animation: pulse 1s infinite;
+    background: #E10600;
+    animation: pulse 1s infinite;
   }
   .dot.live { background: #00D2BE; }
 
@@ -51,7 +55,9 @@
   .grid-2 { grid-template-columns: 2fr 1fr; }
 
   .card {
-    background: #1F1F27; border-radius: 10px; padding: 15px;
+    background: #1F1F27;
+    border-radius: 10px;
+    padding: 15px;
     border-left: 5px solid #E10600;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
   }
@@ -66,7 +72,9 @@
     font-family: 'Courier New', monospace; line-height: 1;
   }
 
-  .metric-unit { font-size: 16px; color: #666; margin-left: 4px; }
+  .metric-unit {
+    font-size: 16px; color: #666; font-weight: normal; margin-left: 4px;
+  }
 
   .gear-display {
     font-size: 96px; color: #E10600; font-weight: 900;
@@ -108,6 +116,7 @@
   }
 
   .tire-label { font-size: 12px; color: #888; letter-spacing: 2px; font-weight: bold; }
+
   .tire-temp {
     font-size: 28px; font-weight: 900;
     font-family: 'Courier New', monospace; margin: 5px 0;
@@ -124,57 +133,8 @@
     background: #1F1F27; border-radius: 10px; padding: 10px; height: 320px;
   }
 
-  /* TRACK MAP + ZOOM CONTROLS */
-  .track-wrapper {
-    position: relative;
-    background: #1F1F27;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
   #trackMap {
-    height: 400px;
-    width: 100%;
-  }
-
-  .zoom-controls {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    z-index: 10;
-  }
-
-  .zoom-btn {
-    width: 38px;
-    height: 38px;
-    background: rgba(225, 6, 0, 0.9);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    transition: all 0.15s;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .zoom-btn:active {
-    transform: scale(0.9);
-    background: #FF1717;
-  }
-
-  .zoom-btn.reset {
-    background: rgba(0, 210, 190, 0.9);
-    color: #15151E;
-    font-size: 18px;
+    height: 380px; background: #1F1F27; border-radius: 10px; padding: 10px;
   }
 
   .lap-row {
@@ -222,8 +182,6 @@
   @media (max-width: 900px) {
     .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
     .metric-value { font-size: 32px; }
-    .header h1 { font-size: 18px; }
-    #trackMap { height: 320px; }
   }
 </style>
 </head>
@@ -283,14 +241,7 @@
 </div>
 
 <div class="grid grid-2">
-  <div class="track-wrapper">
-    <div id="trackMap"></div>
-    <div class="zoom-controls">
-      <button class="zoom-btn" id="zoomIn" title="Приблизить">＋</button>
-      <button class="zoom-btn" id="zoomOut" title="Отдалить">−</button>
-      <button class="zoom-btn reset" id="zoomReset" title="Сброс">⟲</button>
-    </div>
-  </div>
+  <div id="trackMap"></div>
   <div class="card">
     <div class="card-title">SESSION INFO</div>
     <div class="lap-row">
@@ -352,34 +303,19 @@
 
 <script>
 /* ============================================================
-   CONFIG — 8 ПЕРЕДАЧ (нейтрал = 0, передачи 1..8)
+   CONFIG
    ============================================================ */
 const CONFIG = {
   MAX_SPEED: 340,
   MAX_RPM: 15000,
-  // Индекс 0 — нейтраль (заглушка), индексы 1..8 — 8 передач
   GEAR_RATIOS: [0, 3.5, 2.8, 2.2, 1.8, 1.5, 1.3, 1.1, 0.95],
-  MAX_GEAR: 8,          // ← ровно 8 передач
   UPDATE_RATE: 20,
   HISTORY_SIZE: 300
 };
 
-// Диапазоны скоростей для каждой передачи (км/ч)
-// Индекс 0 = нейтрал, 1..8 — передачи
-const GEAR_SPEED_RANGES = [
-  [0, 0],       // neutral
-  [0, 45],      // 1-я
-  [45, 80],     // 2-я
-  [80, 120],    // 3-я
-  [120, 160],   // 4-я
-  [160, 200],   // 5-я
-  [200, 240],   // 6-я
-  [240, 280],   // 7-я
-  [280, 340],   // 8-я
-];
-
 /* ============================================================
-   TRACK
+   TRACK — плавная замкнутая трасса (Сузука-подобная)
+   Генерируется по контрольным точкам через Catmull-Rom сплайн
    ============================================================ */
 const TRACK_CONTROL_POINTS = [
   [0, 0],     [120, -20], [220, 20],  [280, 100],
@@ -397,7 +333,7 @@ function catmullRom(p0, p1, p2, p3, t) {
   ];
 }
 
-function buildSmoothTrack(controlPoints, samplesPerSegment = 25) {
+function buildSmoothTrack(controlPoints, samplesPerSegment = 30) {
   const pts = [];
   const n = controlPoints.length;
   for (let i = 0; i < n; i++) {
@@ -410,12 +346,14 @@ function buildSmoothTrack(controlPoints, samplesPerSegment = 25) {
       pts.push(catmullRom(p0, p1, p2, p3, t));
     }
   }
+  // Замыкаем
   pts.push([...pts[0]]);
   return pts;
 }
 
 const TRACK = buildSmoothTrack(TRACK_CONTROL_POINTS, 25);
 
+// Длины сегментов и общая длина
 const SEGMENT_LENGTHS = [];
 let TRACK_LENGTH = 0;
 for (let i = 0; i < TRACK.length - 1; i++) {
@@ -426,6 +364,7 @@ for (let i = 0; i < TRACK.length - 1; i++) {
   TRACK_LENGTH += len;
 }
 
+// Получить позицию и угол по расстоянию s от старта
 function getTrackPose(s) {
   s = ((s % TRACK_LENGTH) + TRACK_LENGTH) % TRACK_LENGTH;
   let acc = 0;
@@ -445,6 +384,7 @@ function getTrackPose(s) {
   return { x: last[0], y: last[1], angle: 0, index: 0 };
 }
 
+// Кривизна впереди (для симуляции водителя)
 function getCurvatureAhead(s, lookahead) {
   const p1 = getTrackPose(s);
   const p2 = getTrackPose(s + lookahead);
@@ -461,7 +401,7 @@ class CarSimulator {
   constructor() { this.reset(); }
 
   reset() {
-    this.speed = 0;
+    this.speed = 0;            // km/h
     this.rpm = 3000;
     this.gear = 0;
     this.throttle = 0;
@@ -476,8 +416,9 @@ class CarSimulator {
     this.lapTime = 0;
     this.bestLap = null;
     this.lapStart = performance.now() / 1000;
-    this.distance = 0;
+    this.distance = 0;         // пройденное расстояние по трассе (метры)
     this.position = [TRACK[0][0], TRACK[0][1], 0];
+    this.lastS = 0;
   }
 
   update(dt) {
@@ -492,71 +433,102 @@ class CarSimulator {
     this.lapTime = performance.now() / 1000 - this.lapStart;
   }
 
+  /* Водитель смотрит на кривизну впереди и решает газ/тормоз */
   _driverInput() {
     const speedMs = this.speed / 3.6;
+    // Смотрим вперёд пропорционально скорости (от 30 до 120 м)
     const lookahead = 30 + speedMs * 2.5;
 
+    // Считаем кривизну в нескольких точках впереди и берём максимум
     let maxCurv = 0;
     for (let d = 20; d <= lookahead; d += 15) {
       const c = Math.abs(getCurvatureAhead(this.distance, d));
       if (c > maxCurv) maxCurv = c;
     }
 
+    // Целевая скорость зависит от кривизны
+    // maxCurv ~ 0 (прямая) -> 340 км/ч, maxCurv ~ 0.5 (крутой поворот) -> 80 км/ч
     const targetSpeed = Math.max(70, CONFIG.MAX_SPEED * (1 - maxCurv * 1.6));
+
     const speedDiff = targetSpeed - this.speed;
 
     if (speedDiff > 5) {
+      // Разгон
       this.throttle = Math.min(100, 40 + speedDiff * 2);
       this.brake = 0;
     } else if (speedDiff < -15) {
+      // Торможение
       this.brake = Math.min(100, -speedDiff * 3);
       this.throttle = 0;
     } else {
+      // Поддержание
       this.throttle = 30 + speedDiff * 1.5;
       this.brake = 0;
     }
 
+    // Steering — насколько сильно руль отклонён относительно направления
+    const pose = getTrackPose(this.distance);
     const angleToTrack = getCurvatureAhead(this.distance, 10) * 30;
     this.steering = Math.max(-100, Math.min(100, angleToTrack * 100));
+
+    // DRS на прямых
     this.drs = maxCurv < 0.05 && this.speed > 250;
   }
 
+  /* Реальная физика: разгон до 340 за ~10 секунд */
   _physics(dt) {
-    const throttleAccel = this.throttle * 0.09;
-    const brakeDecel = this.brake * 0.12;
+    // Сила от газа (m/s²)
+    const throttleAccel = this.throttle * 0.09;  // макс 9 м/с²
+
+    // Торможение (m/s²)
+    const brakeDecel = this.brake * 0.12;         // макс 12 м/с²
+
+    // Аэродинамическое сопротивление + качение
     const speedMs = this.speed / 3.6;
-    const drag = 0.0009 * speedMs * speedMs + 0.05;
+    const drag = 0.0009 * speedMs * speedMs + 0.05;  // квадратичное + трение
+
+    // ERS boost (если есть заряд)
     const ersBoost = (this.ers > 5 && this.throttle > 70) ? 0.03 : 0;
 
+    // Ускорение (км/ч за секунду)
     const accelMs2 = throttleAccel + ersBoost * 100 - brakeDecel - drag;
+
     this.speed += accelMs2 * 3.6 * dt;
     this.speed = Math.max(0, Math.min(CONFIG.MAX_SPEED, this.speed));
   }
 
-  /* 8 ПЕРЕДАЧ */
   _shiftGears() {
     const s = this.speed;
-    let g = 0;
-    for (let i = 1; i <= CONFIG.MAX_GEAR; i++) {
-      if (s >= GEAR_SPEED_RANGES[i][0]) g = i;
-    }
-    if (s < 5) g = 0;
-    this.gear = g;
+    if (s < 5) this.gear = 0;
+    else if (s < 45) this.gear = 1;
+    else if (s < 80) this.gear = 2;
+    else if (s < 120) this.gear = 3;
+    else if (s < 160) this.gear = 4;
+    else if (s < 200) this.gear = 5;
+    else if (s < 240) this.gear = 6;
+    else if (s < 280) this.gear = 7;
+    else this.gear = 8;
   }
 
   _rpmCalc() {
-    if (this.gear === 0) {
+    const ratio = CONFIG.GEAR_RATIOS[this.gear];
+    if (ratio > 0 && this.gear > 0) {
+      // Диапазон RPM для передачи: низ передачи = низкий RPM, верх = красная зона
+      const gearMinSpeed = [0, 0, 45, 80, 120, 160, 200, 240, 280][this.gear] || 0;
+      const gearMaxSpeed = [0, 45, 80, 120, 160, 200, 240, 280, 340][this.gear] || 340;
+      const frac = Math.max(0, Math.min(1, (this.speed - gearMinSpeed) / (gearMaxSpeed - gearMinSpeed)));
+      this.rpm = 5000 + frac * 10000;  // 5000 - 15000
+    } else {
       this.rpm = 3000 + this.throttle * 30;
-      return;
     }
-    const [minS, maxS] = GEAR_SPEED_RANGES[this.gear];
-    const frac = Math.max(0, Math.min(1, (this.speed - minS) / (maxS - minS)));
-    this.rpm = 5000 + frac * 10000;
   }
 
   _ers(dt) {
-    if (this.throttle > 70) this.ers = Math.max(0, this.ers - 1.5 * dt);
-    else if (this.brake > 20) this.ers = Math.min(100, this.ers + 2.5 * dt);
+    if (this.throttle > 70) {
+      this.ers = Math.max(0, this.ers - 1.5 * dt);
+    } else if (this.brake > 20) {
+      this.ers = Math.min(100, this.ers + 2.5 * dt);
+    }
   }
 
   _fuel(dt) {
@@ -578,6 +550,7 @@ class CarSimulator {
     const pose = getTrackPose(this.distance);
     this.position = [pose.x, pose.y, pose.angle];
 
+    // Проверка круга
     const totalLaps = Math.floor(this.distance / TRACK_LENGTH);
     if (totalLaps > this.lap && this.lapTime > 10) {
       if (this.bestLap === null || this.lapTime < this.bestLap) {
@@ -590,12 +563,21 @@ class CarSimulator {
 
   getData() {
     return {
-      speed: this.speed, rpm: this.rpm, gear: this.gear,
-      throttle: this.throttle, brake: this.brake, steering: this.steering,
-      drs: this.drs, ers: this.ers, fuel: this.fuel,
-      tireTemp: [...this.tireTemp], tireWear: [...this.tireWear],
+      speed: this.speed,
+      rpm: this.rpm,
+      gear: this.gear,
+      throttle: this.throttle,
+      brake: this.brake,
+      steering: this.steering,
+      drs: this.drs,
+      ers: this.ers,
+      fuel: this.fuel,
+      tireTemp: [...this.tireTemp],
+      tireWear: [...this.tireWear],
       position: [...this.position],
-      lap: this.lap, lapTime: this.lapTime, bestLap: this.bestLap
+      lap: this.lap,
+      lapTime: this.lapTime,
+      bestLap: this.bestLap
     };
   }
 }
@@ -625,6 +607,7 @@ const UI = {
 
     const s = Math.max(-100, Math.min(100, data.steering));
     const sBar = this.el('steeringBar');
+    // Ширина относительно центра: макс отклонение = 40% от центра
     sBar.style.left = (50 + s * 0.4) + '%';
     sBar.style.width = Math.abs(s * 0.8) + 'px';
     this.el('steeringValue').textContent = s.toFixed(0) + '°';
@@ -641,6 +624,7 @@ const UI = {
       const t = data.tireTemp[i];
       this.el('temp' + labels[i]).textContent = t.toFixed(0) + '°';
       this.el('wear' + labels[i]).style.width = data.tireWear[i] + '%';
+
       const card = this.el('tire' + labels[i]);
       let color = '#E10600';
       if (t >= 80 && t <= 110) color = '#00D2BE';
@@ -658,31 +642,12 @@ const UI = {
 };
 
 /* ============================================================
-   TRACK MAP — с правильным зумом
+   TRACK MAP
    ============================================================ */
 const TrackMap = {
-  bounds: null,     // исходные границы
-  zoom: 1,
-
   init() {
     const xs = TRACK.map(p => p[0]);
     const ys = TRACK.map(p => p[1]);
-
-    // Считаем границы трассы с запасом
-    const xMin = Math.min(...xs), xMax = Math.max(...xs);
-    const yMin = Math.min(...ys), yMax = Math.max(...ys);
-    const spanX = xMax - xMin;
-    const spanY = yMax - yMin;
-    const span = Math.max(spanX, spanY) * 1.15;
-    const cx = (xMin + xMax) / 2;
-    const cy = (yMin + yMax) / 2;
-
-    this.bounds = {
-      cx, cy,
-      spanX: spanX * 1.15,
-      spanY: spanY * 1.15,
-      span
-    };
 
     const trackOuter = {
       x: xs, y: ys, mode: 'lines',
@@ -699,6 +664,7 @@ const TrackMap = {
       line: { color: '#666', width: 1, dash: 'dot' },
       hoverinfo: 'skip', showlegend: false
     };
+    // Стартовая линия
     const startLine = {
       x: [TRACK[0][0] - 10, TRACK[0][0] + 10],
       y: [TRACK[0][1], TRACK[0][1]],
@@ -719,87 +685,23 @@ const TrackMap = {
     const layout = {
       paper_bgcolor: '#1F1F27',
       plot_bgcolor: '#1F1F27',
-      margin: { l: 10, r: 10, t: 30, b: 10 },
+      margin: { l: 20, r: 20, t: 30, b: 20 },
+      xaxis: { showgrid: false, zeroline: false, showticklabels: false },
+      yaxis: { showgrid: false, zeroline: false, showticklabels: false,
+               scaleanchor: 'x', scaleratio: 1 },
       title: { text: 'TRACK MAP', font: { color: '#888', size: 12 }, x: 0.02 },
-      showlegend: false,
-      // ОБА ГЛАВНЫХ ФИКСА:
-      xaxis: {
-        showgrid: false, zeroline: false, showticklabels: false,
-        range: [cx - span/2, cx + span/2],
-        autorange: false,
-        fixedrange: false
-      },
-      yaxis: {
-        showgrid: false, zeroline: false, showticklabels: false,
-        range: [cy - span/2, cy + span/2],
-        autorange: false,
-        fixedrange: false,
-        scaleanchor: 'x',
-        scaleratio: 1
-      },
-      dragmode: 'pan'
+      showlegend: false
     };
 
     Plotly.newPlot('trackMap', [trackOuter, trackInner, trackCenter, startLine, carTrace], layout, {
-      displayModeBar: false,
-      responsive: true,
-      scrollZoom: true
-    });
-
-    // Ловим зум пользователя (пинч) — сохраняем, чтобы applyZoom знал реальные границы
-    const gd = document.getElementById('trackMap');
-    gd.on('plotly_relayout', (ev) => {
-      // Если пользователь жёстко зумит, запомним его диапазон
-      if (ev['xaxis.range[0]'] !== undefined) {
-        // запоминаем, чтобы следующий applyZoom не сбросил
-        this.userRange = {
-          x: [ev['xaxis.range[0]'], ev['xaxis.range[1]']],
-          y: [ev['yaxis.range[0]'], ev['yaxis.range[1]']]
-        };
-      }
-    });
-  },
-
-  // Применяет масштаб (zoom > 1 = приблизить)
-  applyZoom(factor) {
-    const gd = document.getElementById('trackMap');
-    const layout = gd.layout;
-
-    // Текущие диапазоны (могут быть заданы пользователем через пинч)
-    let xRange = layout.xaxis.range;
-    let yRange = layout.yaxis.range;
-
-    if (!xRange || !yRange) {
-      xRange = [this.bounds.cx - this.bounds.span/2, this.bounds.cx + this.bounds.span/2];
-      yRange = [this.bounds.cy - this.bounds.span/2, this.bounds.cy + this.bounds.span/2];
-    }
-
-    const cx = (xRange[0] + xRange[1]) / 2;
-    const cy = (yRange[0] + yRange[1]) / 2;
-    const halfX = (xRange[1] - xRange[0]) / 2 / factor;
-    const halfY = (yRange[1] - yRange[0]) / 2 / factor;
-
-    const newX = [cx - halfX, cx + halfX];
-    const newY = [cy - halfY, cy + halfY];
-
-    Plotly.relayout('trackMap', {
-      'xaxis.range': newX,
-      'yaxis.range': newY
-    });
-  },
-
-  zoomIn()  { this.applyZoom(1.3); },
-  zoomOut() { this.applyZoom(1 / 1.3); },
-
-  resetZoom() {
-    Plotly.relayout('trackMap', {
-      'xaxis.range': [this.bounds.cx - this.bounds.span/2, this.bounds.cx + this.bounds.span/2],
-      'yaxis.range': [this.bounds.cy - this.bounds.span/2, this.bounds.cy + this.bounds.span/2]
+      displayModeBar: false, responsive: true
     });
   },
 
   update(position) {
     const angleDeg = position[2] * 180 / Math.PI;
+    // Plotly marker angle: 0° = вверх, против часовой; triangle-up уже смотрит вверх
+    // Мы хотим, чтобы нос смотрел по направлению движения
     const markerAngle = angleDeg - 90;
     Plotly.restyle('trackMap', {
       x: [[position[0]]],
@@ -814,7 +716,7 @@ const TrackMap = {
    ============================================================ */
 const HistoryChart = {
   times: [], speeds: [], throttles: [], brakes: [],
-  t0: null, layout: null,
+  t0: null, plotDiv: null, layout: null,
 
   init() {
     const layout = {
@@ -822,17 +724,34 @@ const HistoryChart = {
       plot_bgcolor: '#1F1F27',
       font: { color: '#ccc' },
       margin: { l: 55, r: 55, t: 35, b: 35 },
-      xaxis: { title: 'Time (s)', color: '#888', gridcolor: '#2A2A33', range: [0, 30] },
-      yaxis: { title: 'Speed (km/h)', color: '#E10600', gridcolor: '#2A2A33', range: [0, CONFIG.MAX_SPEED + 20] },
-      yaxis2: { title: 'Inputs %', overlaying: 'y', side: 'right', color: '#00D2BE', range: [0, 100] },
-      legend: { orientation: 'h', y: 1.12, x: 0, font: { size: 11, color: '#ccc' } }
+      xaxis: {
+        title: 'Time (s)', color: '#888',
+        gridcolor: '#2A2A33',
+        range: [0, 30]
+      },
+      yaxis: {
+        title: 'Speed (km/h)', color: '#E10600',
+        gridcolor: '#2A2A33',
+        range: [0, CONFIG.MAX_SPEED + 20]
+      },
+      yaxis2: {
+        title: 'Inputs %', overlaying: 'y', side: 'right',
+        color: '#00D2BE', range: [0, 100]
+      },
+      legend: {
+        orientation: 'h', y: 1.12, x: 0,
+        font: { size: 11, color: '#ccc' }
+      }
     };
     this.layout = layout;
 
     const data = [
-      { x: [], y: [], type: 'scatter', mode: 'lines', name: 'Speed (km/h)', line: { color: '#E10600', width: 2 } },
-      { x: [], y: [], type: 'scatter', mode: 'lines', name: 'Throttle %', line: { color: '#00D2BE', width: 1.5 }, yaxis: 'y2' },
-      { x: [], y: [], type: 'scatter', mode: 'lines', name: 'Brake %', line: { color: '#FFD700', width: 1.5 }, yaxis: 'y2' }
+      { x: [], y: [], type: 'scatter', mode: 'lines',
+        name: 'Speed (km/h)', line: { color: '#E10600', width: 2 } },
+      { x: [], y: [], type: 'scatter', mode: 'lines',
+        name: 'Throttle %', line: { color: '#00D2BE', width: 1.5 }, yaxis: 'y2' },
+      { x: [], y: [], type: 'scatter', mode: 'lines',
+        name: 'Brake %', line: { color: '#FFD700', width: 1.5 }, yaxis: 'y2' }
     ];
 
     Plotly.newPlot('historyChart', data, layout, {
@@ -851,18 +770,24 @@ const HistoryChart = {
     this.brakes.push(data.brake);
 
     while (this.times.length > CONFIG.HISTORY_SIZE) {
-      this.times.shift(); this.speeds.shift();
-      this.throttles.shift(); this.brakes.shift();
+      this.times.shift();
+      this.speeds.shift();
+      this.throttles.shift();
+      this.brakes.shift();
     }
 
+    // Скользящее окно по X
     const xMin = Math.max(0, t - 30);
     const xMax = Math.max(30, t);
     this.layout.xaxis.range = [xMin, xMax];
 
     Plotly.react('historyChart', [
-      { x: this.times, y: this.speeds, type: 'scatter', mode: 'lines', name: 'Speed (km/h)', line: { color: '#E10600', width: 2 } },
-      { x: this.times, y: this.throttles, type: 'scatter', mode: 'lines', name: 'Throttle %', line: { color: '#00D2BE', width: 1.5 }, yaxis: 'y2' },
-      { x: this.times, y: this.brakes, type: 'scatter', mode: 'lines', name: 'Brake %', line: { color: '#FFD700', width: 1.5 }, yaxis: 'y2' }
+      { x: this.times, y: this.speeds, type: 'scatter', mode: 'lines',
+        name: 'Speed (km/h)', line: { color: '#E10600', width: 2 } },
+      { x: this.times, y: this.throttles, type: 'scatter', mode: 'lines',
+        name: 'Throttle %', line: { color: '#00D2BE', width: 1.5 }, yaxis: 'y2' },
+      { x: this.times, y: this.brakes, type: 'scatter', mode: 'lines',
+        name: 'Brake %', line: { color: '#FFD700', width: 1.5 }, yaxis: 'y2' }
     ], this.layout, { displayModeBar: false, responsive: true });
   },
 
@@ -890,12 +815,14 @@ function loop(now) {
     car.update(dt);
     const data = car.getData();
 
+    // UI обновляем ~20 раз/сек
     if (now - lastUIUpdate > 50) {
       UI.update(data);
       TrackMap.update(data.position);
       lastUIUpdate = now;
     }
 
+    // График ~10 раз/сек
     if (now - lastChartUpdate > 100) {
       HistoryChart.push(data);
       lastChartUpdate = now;
@@ -920,11 +847,6 @@ window.addEventListener('load', () => {
     HistoryChart.reset();
     lastTime = performance.now();
   });
-
-  // Zoom buttons
-  document.getElementById('zoomIn').addEventListener('click', () => TrackMap.zoomIn());
-  document.getElementById('zoomOut').addEventListener('click', () => TrackMap.zoomOut());
-  document.getElementById('zoomReset').addEventListener('click', () => TrackMap.resetZoom());
 
   requestAnimationFrame(loop);
 });
